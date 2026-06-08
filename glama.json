@@ -1,0 +1,19 @@
+{
+  "name": "logic-analyzer-mcp",
+  "description": "FastMCP 3.2+ server for USB logic analyzers with sigrok and simulator backends.",
+  "version": "0.1.0",
+  "author": "Sandra Schipal",
+  "license": "MIT",
+  "tags": ["mcp", "logic-analyzer", "sigrok", "uart", "i2c", "spi", "fastmcp"],
+  "fleet_tier": 2,
+  "health": {
+    "docs_complete": true,
+    "tests_present": true,
+    "ci_present": true,
+    "stdio_safe": true
+  },
+  "ports": {
+    "backend_http": 10985,
+    "frontend_vite": 10987
+  }
+}

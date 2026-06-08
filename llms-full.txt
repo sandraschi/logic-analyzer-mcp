@@ -1,0 +1,47 @@
+# logic-analyzer-mcp — full agent context
+
+FastMCP 3.2+ MCP server for USB logic analyzers. Sigrok-first with simulator fallback.
+
+## Architecture
+
+- Portmanteau tools (6): la_device, la_configure, la_trigger, la_capture, la_decode, la_help
+- Backends: SimulatorBackend (synthetic UART/I2C/SPI patterns), SigrokBackend (sigrok-cli subprocess)
+- Session: LogicSession in services/session.py; registry holds last capture/decode
+- Transport: stdio (Cursor), http (10985), composite FastAPI server with /mcp mount
+- Webapp: Vite React on 10987 — trace lanes + decode table
+
+## Default workflow
+
+1. la_device(operation="list")
+2. la_device(operation="connect", device_id="sim-la-001")  # or sigrok:driver:...
+3. la_configure(operation="channels", channels=["D0","D1"])
+4. la_trigger(operation="set", channel="D0", pattern="rising")
+5. la_capture(operation="single", sample_rate_hz=1000000, sample_count=4096)
+6. la_decode(operation="uart", rx="D0")
+7. la_capture(operation="export_vcd")
+
+## Resources
+
+- resource://la/capabilities
+- resource://la/quickstart
+- resource://la/last_capture
+
+## Hardware notes
+
+- Hantek 6022BL: flip H/P button for LA mode; 8ch @ 24 MHz via fx2lafw
+- DSLogic: dslogic driver
+- FX2 Saleae clones: fx2lafw
+
+## Fleet integration
+
+- oscilloscope-mcp: analog rails + digital buses
+- kicad-mcp / chip-design-mcp: post-layout verification
+- Ports registered in mcp-central-docs/operations/WEBAPP_PORTS.md
+
+## Environment
+
+LOGIC_ANALYZER_MCP_BACKEND=auto|simulator|sigrok
+LOGIC_ANALYZER_MCP_SIGROK_CLI=sigrok-cli
+LOGIC_ANALYZER_MCP_CAPTURE_DIR=./captures
+LOGIC_ANALYZER_MCP_PORT=10985
+LOGIC_ANALYZER_MCP_WEBAPP_PORT=10987
