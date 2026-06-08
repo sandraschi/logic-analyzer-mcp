@@ -1,35 +1,50 @@
-import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
-import { getCapabilities, getStatus } from "@/lib/api";
+import { getCapabilities, getStatus } from '@/lib/api';
+import { useQuery } from '@tanstack/react-query';
+import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
-  const { data: status } = useQuery({ queryKey: ["status"], queryFn: getStatus });
-  const { data: caps } = useQuery({ queryKey: ["capabilities"], queryFn: getCapabilities });
+  const { data: status } = useQuery({ queryKey: ['status'], queryFn: getStatus });
+  const { data: caps } = useQuery({ queryKey: ['capabilities'], queryFn: getCapabilities });
 
   const portmanteau = caps?.tool_surface?.portmanteau_tools ?? [];
 
   return (
     <div className="max-w-5xl">
       <h1 className="text-2xl font-bold mb-2">Dashboard</h1>
-      <p className="text-zinc-400 mb-6">Fleet logic analyzer console — sigrok and simulator backends.</p>
+      <p className="text-zinc-400 mb-6">
+        Fleet logic analyzer console — sigrok and simulator backends.
+      </p>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-        <StatCard label="Tools" value={String(status?.tool_count ?? "-")} accent="text-blue-400" />
-        <StatCard label="Backend" value={status?.active_backend ?? "auto"} accent="text-cyan-400" />
-        <StatCard label="Portmanteau" value={String(caps?.tool_surface?.portmanteau_count ?? "-")} accent="text-emerald-400" />
-        <StatCard label="Version" value={status?.version ?? "-"} accent="text-zinc-200" />
+        <StatCard label="Tools" value={String(status?.tool_count ?? '-')} accent="text-blue-400" />
+        <StatCard label="Backend" value={status?.active_backend ?? 'auto'} accent="text-cyan-400" />
+        <StatCard
+          label="Portmanteau"
+          value={String(caps?.tool_surface?.portmanteau_count ?? '-')}
+          accent="text-emerald-400"
+        />
+        <StatCard label="Version" value={status?.version ?? '-'} accent="text-zinc-200" />
       </div>
 
       <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 mb-6">
         <h2 className="text-lg font-semibold mb-3">Quick actions</h2>
         <div className="flex flex-wrap gap-3">
-          <Link to="/trace" className="rounded-lg bg-cyan-500/20 text-cyan-200 px-4 py-2 text-sm hover:bg-cyan-500/30">
+          <Link
+            to="/trace"
+            className="rounded-lg bg-cyan-500/20 text-cyan-200 px-4 py-2 text-sm hover:bg-cyan-500/30"
+          >
             Open trace viewer
           </Link>
-          <Link to="/decode" className="rounded-lg bg-emerald-500/20 text-emerald-200 px-4 py-2 text-sm hover:bg-emerald-500/30">
+          <Link
+            to="/decode"
+            className="rounded-lg bg-emerald-500/20 text-emerald-200 px-4 py-2 text-sm hover:bg-emerald-500/30"
+          >
             Decode protocols
           </Link>
-          <Link to="/tools" className="rounded-lg border border-zinc-700 px-4 py-2 text-sm hover:bg-zinc-800">
+          <Link
+            to="/tools"
+            className="rounded-lg border border-zinc-700 px-4 py-2 text-sm hover:bg-zinc-800"
+          >
             Browse MCP tools
           </Link>
         </div>

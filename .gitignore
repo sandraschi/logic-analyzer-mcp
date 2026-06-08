@@ -1,3 +1,5 @@
+dist/
+!dist/*.mcpb
 __pycache__/
 *.py[cod]
 .venv/

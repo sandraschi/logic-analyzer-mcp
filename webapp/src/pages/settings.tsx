@@ -1,8 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
-import { getStatus } from "@/lib/api";
+import { getStatus } from '@/lib/api';
+import { useQuery } from '@tanstack/react-query';
 
 export default function Settings() {
-  const { data: status } = useQuery({ queryKey: ["status"], queryFn: getStatus });
+  const { data: status } = useQuery({ queryKey: ['status'], queryFn: getStatus });
 
   return (
     <div className="max-w-3xl">
@@ -12,8 +12,8 @@ export default function Settings() {
       <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 space-y-4 text-sm">
         <Row label="Backend port" value="10985" />
         <Row label="Frontend port" value="10987" />
-        <Row label="Active backend" value={status?.active_backend ?? "auto"} />
-        <Row label="Capture dir" value={status?.capture_dir ?? "./captures"} />
+        <Row label="Active backend" value={status?.active_backend ?? 'auto'} />
+        <Row label="Capture dir" value={status?.capture_dir ?? './captures'} />
         <Row label="Env: LOGIC_ANALYZER_MCP_BACKEND" value="auto | simulator | sigrok" />
         <Row label="Env: LOGIC_ANALYZER_MCP_SIGROK_CLI" value="sigrok-cli (PATH)" />
       </div>

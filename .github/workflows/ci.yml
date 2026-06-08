@@ -31,3 +31,12 @@ jobs:
 
       - name: Pytest
         run: uv run pytest tests/ -v -m "not integration"
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Biome lint (webapp)
+        working-directory: webapp
+        run: npm ci; npm run lint

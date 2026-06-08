@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { callTool, runCapture, runDecode } from "@/lib/api";
+import { callTool, runCapture, runDecode } from '@/lib/api';
+import { useState } from 'react';
 
 export default function Decode() {
   const [rows, setRows] = useState<Record<string, unknown>[]>([]);
-  const [protocol, setProtocol] = useState("uart");
+  const [protocol, setProtocol] = useState('uart');
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
@@ -11,20 +11,20 @@ export default function Decode() {
     setBusy(true);
     setMessage(null);
     try {
-      await callTool("la_device", { operation: "connect", device_id: "sim-la-001" });
-      await runCapture({ sample_rate_hz: 1_000_000, sample_count: 1024, channels: ["D0", "D1"] });
+      await callTool('la_device', { operation: 'connect', device_id: 'sim-la-001' });
+      await runCapture({ sample_rate_hz: 1_000_000, sample_count: 1024, channels: ['D0', 'D1'] });
       const decodeArgs =
-        protocol === "i2c"
-          ? { protocol: "i2c", sda: "D0", scl: "D1" }
-          : protocol === "spi"
-            ? { protocol: "spi", clk: "D0", mosi: "D1", miso: "D2" }
-            : { protocol: "uart", rx: "D0" };
+        protocol === 'i2c'
+          ? { protocol: 'i2c', sda: 'D0', scl: 'D1' }
+          : protocol === 'spi'
+            ? { protocol: 'spi', clk: 'D0', mosi: 'D1', miso: 'D2' }
+            : { protocol: 'uart', rx: 'D0' };
       const res = await runDecode(decodeArgs);
       const data = res.data?.data ?? res.data;
       setRows((data?.rows as Record<string, unknown>[]) ?? []);
       setMessage(`Decoded ${protocol.toUpperCase()}`);
     } catch (e) {
-      setMessage(e instanceof Error ? e.message : "Decode failed");
+      setMessage(e instanceof Error ? e.message : 'Decode failed');
     }
     setBusy(false);
   };
@@ -76,7 +76,7 @@ export default function Decode() {
               rows.map((row, idx) => (
                 <tr key={idx} className="border-t border-zinc-800">
                   <td className="px-4 py-2 font-mono text-zinc-500">{idx + 1}</td>
-                  <td className="px-4 py-2 text-cyan-300">{String(row.type ?? row.line ?? "-")}</td>
+                  <td className="px-4 py-2 text-cyan-300">{String(row.type ?? row.line ?? '-')}</td>
                   <td className="px-4 py-2 font-mono text-xs text-emerald-200">
                     {JSON.stringify(row)}
                   </td>

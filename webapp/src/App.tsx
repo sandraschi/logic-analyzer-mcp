@@ -1,11 +1,11 @@
-import { Routes, Route } from "react-router-dom";
-import AppLayout from "@/components/layout/AppLayout";
-import Dashboard from "@/pages/dashboard";
-import Trace from "@/pages/trace";
-import Decode from "@/pages/decode";
-import ToolsPage from "@/pages/tools";
-import Settings from "@/pages/settings";
-import Help from "@/pages/help";
+import AppLayout from '@/components/layout/AppLayout';
+import Dashboard from '@/pages/dashboard';
+import Decode from '@/pages/decode';
+import Help from '@/pages/help';
+import Settings from '@/pages/settings';
+import ToolsPage from '@/pages/tools';
+import Trace from '@/pages/trace';
+import { Route, Routes } from 'react-router-dom';
 
 export default function App() {
   return (

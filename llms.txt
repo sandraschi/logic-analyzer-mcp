@@ -30,6 +30,7 @@ la_decode(operation="uart", rx="D0")
 
 - README.md
 - INSTALL.md
+- docs/PRD.md
 - docs/TOOLS.md
 - docs/HARDWARE.md
 - docs/BACKENDS.md
@@ -39,6 +40,17 @@ la_decode(operation="uart", rx="D0")
 
 uv sync --extra dev
 uv run python -m logic_analyzer_mcp --stdio
+
+## MCPB (Claude Desktop)
+
+- `manifest.json` at repo root
+- Build: `just mcpb-pack` → `dist/logic-analyzer-mcp-v0.1.0.mcpb`
+- Drag `.mcpb` to Claude Desktop or use stdio in Cursor `mcp.json`
+
+## Discovery
+
+- glama.json — Glama / fleet registry
+- GET http://127.0.0.1:10985/api/capabilities
 
 ## Ports
 

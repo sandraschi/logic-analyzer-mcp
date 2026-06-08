@@ -1,4 +1,4 @@
-const BASE = "/api";
+const BASE = '/api';
 
 export interface StatusResponse {
   status: string;
@@ -41,8 +41,8 @@ export async function getTools(): Promise<{ tools: ToolInfo[] }> {
 
 export async function callTool(name: string, args: Record<string, unknown>) {
   const res = await fetch(`${BASE}/tools/${name}/call`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ arguments: args }),
   });
   return res.json();
@@ -54,8 +54,8 @@ export async function runCapture(args: {
   channels?: string[];
 }) {
   const res = await fetch(`${BASE}/capture/run`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(args),
   });
   return res.json();
@@ -66,10 +66,15 @@ export async function getLastCapture() {
   return res.json();
 }
 
-export async function runDecode(args: { protocol?: string; rx?: string; sda?: string; scl?: string }) {
+export async function runDecode(args: {
+  protocol?: string;
+  rx?: string;
+  sda?: string;
+  scl?: string;
+}) {
   const res = await fetch(`${BASE}/decode/run`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(args),
   });
   return res.json();

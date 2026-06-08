@@ -1,0 +1,86 @@
+{
+  "manifest_version": "0.2",
+  "name": "logic-analyzer-mcp",
+  "version": "0.1.0",
+  "description": "FastMCP 3.2+ MCP server for USB logic analyzers via sigrok-cli and simulator. Digital capture, UART/I2C/SPI decode, VCD export. Webapp :10987, HTTP :10985.",
+  "long_description": "Logic Analyzer MCP connects AI agents to USB logic analyzers through sigrok-cli (Hantek 6022BL LA mode, DSLogic, FX2 clones) or a built-in simulator. Six portmanteau tools cover device discovery, channel/trigger setup, capture, protocol decode, and help. Pair with oscilloscope-mcp for mixed-signal electronics bench workflows.",
+  "author": {
+    "name": "Sandra Schipal",
+    "email": "sandra@schipal.at"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sandraschi/logic-analyzer-mcp"
+  },
+  "homepage": "https://github.com/sandraschi/logic-analyzer-mcp",
+  "documentation": "https://github.com/sandraschi/logic-analyzer-mcp/blob/main/README.md",
+  "support": "https://github.com/sandraschi/logic-analyzer-mcp/issues",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "logic-analyzer",
+    "sigrok",
+    "pulseview",
+    "uart",
+    "i2c",
+    "spi",
+    "hantek",
+    "fastmcp",
+    "fleet"
+  ],
+  "icon": "assets/icon.png",
+  "server": {
+    "type": "python",
+    "entry_point": "src/logic_analyzer_mcp/server.py",
+    "mcp_config": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--project",
+        "${__dirname}",
+        "python",
+        "-m",
+        "logic_analyzer_mcp",
+        "--stdio"
+      ],
+      "env": {
+        "PYTHONUNBUFFERED": "1",
+        "LOGIC_ANALYZER_MCP_BACKEND": "auto"
+      }
+    }
+  },
+  "user_config": {
+    "LOGIC_ANALYZER_MCP_BACKEND": {
+      "type": "string",
+      "title": "Backend preference",
+      "description": "auto, simulator, or sigrok",
+      "required": false,
+      "default": "auto"
+    },
+    "LOGIC_ANALYZER_MCP_SIGROK_CLI": {
+      "type": "string",
+      "title": "sigrok-cli path",
+      "description": "Path or name of sigrok-cli executable",
+      "required": false,
+      "default": "sigrok-cli"
+    },
+    "LOGIC_ANALYZER_MCP_CAPTURE_DIR": {
+      "type": "directory",
+      "title": "Capture directory",
+      "description": "Folder for CSV/VCD/JSON exports",
+      "required": false,
+      "default": ""
+    }
+  },
+  "tools": [
+    { "name": "la_device", "description": "Discover and connect USB logic analyzers" },
+    { "name": "la_configure", "description": "Channels, sample rate, simulator patterns" },
+    { "name": "la_trigger", "description": "Digital trigger channel and edge" },
+    { "name": "la_capture", "description": "Acquire traces and export CSV/VCD" },
+    { "name": "la_decode", "description": "Decode UART, I2C, SPI via sigrok" },
+    { "name": "la_help", "description": "Discovery, quickstart, hardware guide" }
+  ],
+  "compatibility": {
+    "platforms": ["win32", "darwin", "linux"]
+  }
+}

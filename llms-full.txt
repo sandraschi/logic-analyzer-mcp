@@ -45,3 +45,13 @@ LOGIC_ANALYZER_MCP_SIGROK_CLI=sigrok-cli
 LOGIC_ANALYZER_MCP_CAPTURE_DIR=./captures
 LOGIC_ANALYZER_MCP_PORT=10985
 LOGIC_ANALYZER_MCP_WEBAPP_PORT=10987
+
+## MCPB
+
+- manifest.json (Claude Desktop bundle)
+- just mcpb-pack → dist/logic-analyzer-mcp-v0.1.0.mcpb
+- glama.json for registry discovery
+
+## PRD
+
+docs/PRD.md — product requirements, success metrics, fleet pipelines

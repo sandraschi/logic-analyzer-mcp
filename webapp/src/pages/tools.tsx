@@ -1,36 +1,36 @@
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { callTool, getTools } from "@/lib/api";
+import { callTool, getTools } from '@/lib/api';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 
 const PORTMANTEAU_OPS: Record<string, string[]> = {
-  la_device: ["list", "connect", "disconnect", "status", "capabilities", "backends"],
-  la_configure: ["channels", "sample_rate", "get", "simulator_pattern"],
-  la_trigger: ["set", "get"],
-  la_capture: ["single", "preview", "export_csv", "export_vcd", "export_summary", "last"],
-  la_decode: ["list", "uart", "i2c", "spi", "last"],
-  la_help: ["discover", "tool_help", "status", "quickstart", "faq", "hardware_guide"],
+  la_device: ['list', 'connect', 'disconnect', 'status', 'capabilities', 'backends'],
+  la_configure: ['channels', 'sample_rate', 'get', 'simulator_pattern'],
+  la_trigger: ['set', 'get'],
+  la_capture: ['single', 'preview', 'export_csv', 'export_vcd', 'export_summary', 'last'],
+  la_decode: ['list', 'uart', 'i2c', 'spi', 'last'],
+  la_help: ['discover', 'tool_help', 'status', 'quickstart', 'faq', 'hardware_guide'],
 };
 
 export default function ToolsPage() {
-  const { data } = useQuery({ queryKey: ["tools"], queryFn: getTools });
-  const [result, setResult] = useState<string>("");
+  const { data } = useQuery({ queryKey: ['tools'], queryFn: getTools });
+  const [result, setResult] = useState<string>('');
   const [busy, setBusy] = useState(false);
 
   const run = async (name: string, operation: string) => {
     setBusy(true);
     try {
       const args: Record<string, unknown> = { operation };
-      if (name === "la_device" && operation === "connect") args.device_id = "sim-la-001";
-      if (name === "la_capture" && operation === "single") {
+      if (name === 'la_device' && operation === 'connect') args.device_id = 'sim-la-001';
+      if (name === 'la_capture' && operation === 'single') {
         args.sample_rate_hz = 1_000_000;
         args.sample_count = 1024;
-        args.channels = ["D0", "D1"];
+        args.channels = ['D0', 'D1'];
       }
-      if (name === "la_configure" && operation === "channels") args.channels = ["D0", "D1"];
+      if (name === 'la_configure' && operation === 'channels') args.channels = ['D0', 'D1'];
       const res = await callTool(name, args);
       setResult(JSON.stringify(res, null, 2));
     } catch (e) {
-      setResult(e instanceof Error ? e.message : "Tool call failed");
+      setResult(e instanceof Error ? e.message : 'Tool call failed');
     }
     setBusy(false);
   };

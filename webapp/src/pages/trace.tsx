@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { callTool, runCapture } from "@/lib/api";
+import { callTool, runCapture } from '@/lib/api';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 type Preview = {
   channels: Record<string, number[]>;
@@ -16,7 +16,7 @@ export default function Trace() {
   const draw = useCallback((data: Preview) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     const width = canvas.width;
@@ -25,10 +25,19 @@ export default function Trace() {
     canvas.height = height;
 
     ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = "#09090b";
+    ctx.fillStyle = '#09090b';
     ctx.fillRect(0, 0, width, height);
 
-    const colors = ["#22d3ee", "#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#a855f7", "#ec4899", "#84cc16"];
+    const colors = [
+      '#22d3ee',
+      '#3b82f6',
+      '#10b981',
+      '#f59e0b',
+      '#ef4444',
+      '#a855f7',
+      '#ec4899',
+      '#84cc16',
+    ];
     if (!channelIds.length) return;
 
     channelIds.forEach((id, index) => {
@@ -36,14 +45,14 @@ export default function Trace() {
       const yBase = 24 + index * LANE_HEIGHT;
       const laneMid = yBase + LANE_HEIGHT / 2;
 
-      ctx.strokeStyle = "#27272a";
+      ctx.strokeStyle = '#27272a';
       ctx.beginPath();
       ctx.moveTo(80, laneMid);
       ctx.lineTo(width - 12, laneMid);
       ctx.stroke();
 
       ctx.fillStyle = colors[index % colors.length];
-      ctx.font = "12px monospace";
+      ctx.font = '12px monospace';
       ctx.fillText(id, 8, laneMid + 4);
 
       ctx.strokeStyle = colors[index % colors.length];
@@ -78,11 +87,15 @@ export default function Trace() {
     setBusy(true);
     setMessage(null);
     try {
-      const res = await callTool("la_device", { operation: "connect", device_id: "sim-la-001" });
+      const res = await callTool('la_device', { operation: 'connect', device_id: 'sim-la-001' });
       const payload = res.data?.data ?? res.data;
-      setMessage(payload?.success !== false ? "Connected to simulator" : payload?.error ?? "Connect failed");
+      setMessage(
+        payload?.success !== false
+          ? 'Connected to simulator'
+          : (payload?.error ?? 'Connect failed'),
+      );
     } catch (e) {
-      setMessage(e instanceof Error ? e.message : "Connect failed");
+      setMessage(e instanceof Error ? e.message : 'Connect failed');
     }
     setBusy(false);
   };
@@ -91,12 +104,16 @@ export default function Trace() {
     setBusy(true);
     setMessage(null);
     try {
-      const res = await runCapture({ sample_rate_hz: 1_000_000, sample_count: 2048, channels: ["D0", "D1", "D2", "D3"] });
+      const res = await runCapture({
+        sample_rate_hz: 1_000_000,
+        sample_count: 2048,
+        channels: ['D0', 'D1', 'D2', 'D3'],
+      });
       const previewData = res.data?.data?.preview as Preview | undefined;
       if (previewData) setPreview(previewData);
-      setMessage("Capture complete");
+      setMessage('Capture complete');
     } catch (e) {
-      setMessage(e instanceof Error ? e.message : "Capture failed");
+      setMessage(e instanceof Error ? e.message : 'Capture failed');
     }
     setBusy(false);
   };
@@ -104,7 +121,9 @@ export default function Trace() {
   return (
     <div className="max-w-6xl">
       <h1 className="text-2xl font-bold mb-2">Trace Viewer</h1>
-      <p className="text-zinc-400 mb-4">Digital lane preview from la_capture (simulator or sigrok hardware).</p>
+      <p className="text-zinc-400 mb-4">
+        Digital lane preview from la_capture (simulator or sigrok hardware).
+      </p>
 
       <div className="flex gap-3 mb-4">
         <button

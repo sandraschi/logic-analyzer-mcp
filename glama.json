@@ -1,16 +1,93 @@
 {
+  "$schema": "https://glama.ai/schemas/mcp.json",
   "name": "logic-analyzer-mcp",
-  "description": "FastMCP 3.2+ server for USB logic analyzers with sigrok and simulator backends.",
   "version": "0.1.0",
+  "description": "FastMCP 3.2+ USB logic analyzer MCP: sigrok-cli + simulator. UART/I2C/SPI decode, VCD export. Webapp 10985/10987.",
   "author": "Sandra Schipal",
   "license": "MIT",
-  "tags": ["mcp", "logic-analyzer", "sigrok", "uart", "i2c", "spi", "fastmcp"],
-  "fleet_tier": 2,
+  "language": "python",
+  "framework": "fastmcp",
+  "type": "mcp_server",
+  "status": "beta",
+  "transport": ["stdio", "http"],
+  "keywords": [
+    "logic-analyzer",
+    "sigrok",
+    "uart",
+    "i2c",
+    "spi",
+    "hantek",
+    "mcp",
+    "fastmcp",
+    "fleet"
+  ],
+  "categories": ["Developer Tools", "Hardware", "AI Agents"],
+  "homepage": "https://github.com/sandraschi/logic-analyzer-mcp",
+  "repository": {
+    "url": "https://github.com/sandraschi/logic-analyzer-mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "github",
+      "identifier": "sandraschi/logic-analyzer-mcp",
+      "transport": {
+        "type": "stdio",
+        "command": "uv",
+        "args": ["run", "python", "-m", "logic_analyzer_mcp", "--stdio"]
+      }
+    },
+    {
+      "registryType": "github",
+      "identifier": "sandraschi/logic-analyzer-mcp",
+      "transport": {
+        "type": "http",
+        "url": "http://127.0.0.1:10985/mcp"
+      }
+    }
+  ],
+  "mcpServers": {
+    "logic-analyzer-mcp": {
+      "name": "logic-analyzer-mcp",
+      "command": "uv",
+      "args": ["run", "python", "-m", "logic_analyzer_mcp", "--stdio"],
+      "env": {
+        "LOGIC_ANALYZER_MCP_BACKEND": "auto"
+      },
+      "description": "Stdio MCP (Claude Desktop / Cursor).",
+      "capabilities": {
+        "tools": { "enabled": true, "listChanged": true },
+        "resources": { "enabled": true },
+        "prompts": { "enabled": true },
+        "webapp": {
+          "enabled": true,
+          "url": "http://127.0.0.1:10987",
+          "api_url": "http://127.0.0.1:10985"
+        }
+      }
+    },
+    "logic-analyzer-mcp-http": {
+      "name": "logic-analyzer-mcp-http",
+      "url": "http://127.0.0.1:10985/mcp",
+      "description": "Streamable HTTP MCP. Start: just serve-http or webapp/start.ps1",
+      "capabilities": {
+        "tools": { "enabled": true, "listChanged": true },
+        "resources": { "enabled": true },
+        "prompts": { "enabled": true },
+        "webapp": {
+          "enabled": true,
+          "url": "http://127.0.0.1:10987",
+          "api_url": "http://127.0.0.1:10985"
+        }
+      }
+    }
+  },
   "health": {
     "docs_complete": true,
     "tests_present": true,
     "ci_present": true,
-    "stdio_safe": true
+    "stdio_safe": true,
+    "mcpb_packaged": true
   },
   "ports": {
     "backend_http": 10985,

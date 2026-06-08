@@ -1,13 +1,13 @@
-import { NavLink } from "react-router-dom";
-import { Activity, Binary, HelpCircle, LayoutDashboard, Settings, Wrench } from "lucide-react";
+import { Activity, Binary, HelpCircle, LayoutDashboard, Settings, Wrench } from 'lucide-react';
+import { NavLink } from 'react-router-dom';
 
 const links = [
-  { to: "/", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/trace", label: "Trace", icon: Binary },
-  { to: "/decode", label: "Decode", icon: Activity },
-  { to: "/tools", label: "Tools", icon: Wrench },
-  { to: "/settings", label: "Settings", icon: Settings },
-  { to: "/help", label: "Help", icon: HelpCircle },
+  { to: '/', label: 'Dashboard', icon: LayoutDashboard },
+  { to: '/trace', label: 'Trace', icon: Binary },
+  { to: '/decode', label: 'Decode', icon: Activity },
+  { to: '/tools', label: 'Tools', icon: Wrench },
+  { to: '/settings', label: 'Settings', icon: Settings },
+  { to: '/help', label: 'Help', icon: HelpCircle },
 ];
 
 export default function Sidebar() {
@@ -26,7 +26,9 @@ export default function Sidebar() {
           to={to}
           className={({ isActive }) =>
             `flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition ${
-              isActive ? "bg-cyan-500/20 text-cyan-300" : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100"
+              isActive
+                ? 'bg-cyan-500/20 text-cyan-300'
+                : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100'
             }`
           }
         >
