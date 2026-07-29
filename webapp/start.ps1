@@ -9,6 +9,13 @@ $ErrorActionPreference = "Stop"
 $WebRoot = $PSScriptRoot
 $ProjectRoot = Split-Path -Parent $WebRoot
 $BackendPort = 10985
+$FleetStartPath = Join-Path $ProjectRoot "scripts\FleetStartMode.ps1"
+if (-not (Test-Path -LiteralPath $FleetStartPath)) {
+    Write-Host "ERROR: Missing vendored launcher helper: $FleetStartPath" -ForegroundColor Red
+    exit 1
+}
+. $FleetStartPath
+
 $FrontendPort = 10987
 
 Write-Host "=== logic-analyzer-mcp webapp launcher ===" -ForegroundColor Cyan
