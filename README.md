@@ -38,7 +38,7 @@ The MCP server does not bundle sigrok. Install PulseView or sigrok-cli separatel
 Set-Location D:\Dev\repos\logic-analyzer-mcp
 uv sync --extra dev
 just webapp
-# Open http://127.0.0.1:10987
+# Open http://127.0.0.1:10988
 ```
 
 STDIO-only (Cursor MCP):
@@ -98,10 +98,19 @@ Restart Cursor after editing `mcp.json`.
 | Port | Role |
 |------|------|
 | 10985 | Backend (FastAPI + MCP `/mcp`) |
-| 10987 | Frontend (Vite React — trace + decode viewers) |
+| 10988 | Frontend (Vite React — dashboard, device, configure, trigger, trace, decode, logs) |
 
 ```powershell
 just webapp
+```
+
+## Native App (Tauri)
+
+A Tauri 2.0 wrapper (`native/`) packages the backend with PyInstaller into a single NSIS installer — one shortcut, embedded Python, no separate runtime.
+
+```powershell
+pwsh -NoProfile -File native/build.ps1   # webapp → PyInstaller → Rust → NSIS
+just cua-nsis-test                        # install → launch → verify → uninstall
 ```
 
 ## Documentation

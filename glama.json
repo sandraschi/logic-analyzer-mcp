@@ -2,13 +2,15 @@
   "$schema": "https://glama.ai/schemas/mcp.json",
   "name": "logic-analyzer-mcp",
   "version": "0.1.0",
-  "description": "FastMCP 3.2+ USB logic analyzer MCP: sigrok-cli + simulator. UART/I2C/SPI decode, VCD export. Webapp 10985/10987.",
+  "description": "FastMCP 3.2+ USB logic analyzer MCP: sigrok-cli + simulator. UART/I2C/SPI decode, VCD export. Webapp 10985/10988.",
   "author": "Sandra Schipal",
+  "maintainers": ["sandraschi"],
   "license": "MIT",
   "language": "python",
   "framework": "fastmcp",
   "type": "mcp_server",
   "status": "beta",
+  "tools": 6,
   "transport": ["stdio", "http"],
   "keywords": [
     "logic-analyzer",
@@ -61,7 +63,7 @@
         "prompts": { "enabled": true },
         "webapp": {
           "enabled": true,
-          "url": "http://127.0.0.1:10987",
+          "url": "http://127.0.0.1:10988",
           "api_url": "http://127.0.0.1:10985"
         }
       }
@@ -76,7 +78,7 @@
         "prompts": { "enabled": true },
         "webapp": {
           "enabled": true,
-          "url": "http://127.0.0.1:10987",
+          "url": "http://127.0.0.1:10988",
           "api_url": "http://127.0.0.1:10985"
         }
       }
@@ -91,6 +93,6 @@
   },
   "ports": {
     "backend_http": 10985,
-    "frontend_vite": 10987
+    "frontend_vite": 10988
   }
 }
