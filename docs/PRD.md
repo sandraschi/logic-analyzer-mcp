@@ -23,7 +23,7 @@ Logic Analyzer MCP is a **FastMCP 3.2+** server plus React webapp for **USB logi
 |---------|------|
 | Agent / IDE user | Portmanteau tools, simulator dry-run, decode rows |
 | Hardware tinkerer | sigrok fx2lafw (6022BL LA mode), DSLogic |
-| Fleet operator | stdio MCP, HTTP :10985, webapp :10987, MCPB package |
+| Fleet operator | stdio MCP, HTTP :10985, webapp :10988, MCPB package |
 
 ## Success metrics
 

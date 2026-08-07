@@ -55,4 +55,4 @@ uv run python -m logic_analyzer_mcp --stdio
 ## Ports
 
 HTTP backend: 10985
-Webapp frontend: 10987
+Webapp frontend: 10988

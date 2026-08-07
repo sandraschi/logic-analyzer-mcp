@@ -1,37 +1,25 @@
-# MCPB bundle exclusions (fleet MCPB_PACKAGING_STANDARDS)
-
+# Logic/Dev Bloat
 .venv/
+node_modules/
 __pycache__/
-*.pyc
 .ruff_cache/
 .pytest_cache/
-htmlcov/
-
-webapp/
-
 tests/
-docs/
-.github/
-.cursor/
-.windsurf/
-.vscode/
 
+# Discovery & Fleet Metadata
 glama.json
 llms.txt
 llms-full.txt
+.git/
+.github/
+.vscode/
 
-justfile
-.pre-commit-config.yaml
-uv.lock
-start.ps1
-start.bat
-INSTALL.md
-CHANGELOG.md
-CONTRIBUTING.md
-
+# Build Artifacts
 dist/
 build/
 *.mcpb
-*.log
-captures/
-exports/
+
+# Non-MCP components (webapp, native, scripts)
+native/
+web_sota/
+scripts/

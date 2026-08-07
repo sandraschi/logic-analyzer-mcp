@@ -29,7 +29,7 @@ class LogicAnalyzerSettings(BaseSettings):
     transport: Literal["stdio", "http", "sse"] = "stdio"
     host: str = "127.0.0.1"
     port: int = 10985
-    webapp_port: int = 10987
+    webapp_port: int = 10988
     path: str = "/mcp"
     log_level: str = "INFO"
 

@@ -83,7 +83,7 @@ async def build_capabilities(mcp: Any) -> dict[str, Any]:
             "transport": "http",
             "surface_mode": "portmanteau",
             "backend_port": 10985,
-            "frontend_port": 10987,
+            "frontend_port": 10988,
         },
         "timestamp": datetime.now(UTC).isoformat(),
     }

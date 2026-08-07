@@ -1,11 +1,26 @@
-import { Activity, Binary, HelpCircle, LayoutDashboard, Settings, Wrench } from 'lucide-react';
+import {
+  Activity,
+  Binary,
+  Cable,
+  HelpCircle,
+  LayoutDashboard,
+  List,
+  Settings,
+  SlidersHorizontal,
+  Wrench,
+  Zap,
+} from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
 const links = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard },
+  { to: '/device', label: 'Device', icon: Cable },
   { to: '/trace', label: 'Trace', icon: Binary },
+  { to: '/configure', label: 'Configure', icon: SlidersHorizontal },
+  { to: '/trigger', label: 'Trigger', icon: Zap },
   { to: '/decode', label: 'Decode', icon: Activity },
   { to: '/tools', label: 'Tools', icon: Wrench },
+  { to: '/logs', label: 'Logs', icon: List },
   { to: '/settings', label: 'Settings', icon: Settings },
   { to: '/help', label: 'Help', icon: HelpCircle },
 ];

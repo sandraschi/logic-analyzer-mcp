@@ -16,7 +16,7 @@ if (-not (Test-Path -LiteralPath $FleetStartPath)) {
 }
 . $FleetStartPath
 
-$FrontendPort = 10987
+$FrontendPort = 10988
 
 Write-Host "=== logic-analyzer-mcp webapp launcher ===" -ForegroundColor Cyan
 

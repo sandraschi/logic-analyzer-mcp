@@ -24,7 +24,7 @@ capabilities.py        → /api/capabilities fleet contract
 |------|-------|------|
 | stdio | `python -m logic_analyzer_mcp --stdio` | — |
 | http | `uvicorn logic_analyzer_mcp.server:app` | 10985 |
-| webapp | `webapp/start.ps1` | 10985 + 10987 |
+| webapp | `webapp/start.ps1` | 10985 + 10988 |
 
 ## Data flow
 

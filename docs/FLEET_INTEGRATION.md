@@ -5,7 +5,7 @@
 | Port | Role |
 |------|------|
 | 10985 | Backend HTTP + MCP `/mcp` |
-| 10987 | Vite frontend |
+| 10988 | Vite frontend |
 
 Registered in `mcp-central-docs/operations/WEBAPP_PORTS.md`.
 

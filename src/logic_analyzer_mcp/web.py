@@ -3,18 +3,23 @@
 from __future__ import annotations
 
 import json
+import os
 from typing import Any
 
+import httpx
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 
 from logic_analyzer_mcp import __version__
+from logic_analyzer_mcp.activity_log import ActivityLog, create_log_router
 from logic_analyzer_mcp.capabilities import build_capabilities
 from logic_analyzer_mcp.config import get_settings
 from logic_analyzer_mcp.services.registry import get_last_capture, get_last_decode, get_session
 
 
 def setup_webapp(app: FastAPI, mcp: Any) -> None:
+    mcp_log = ActivityLog()
+    app.include_router(create_log_router(mcp_log), prefix="/api")
     """Register REST routes on the FastAPI application."""
 
     @app.get("/health")
@@ -67,7 +72,7 @@ def setup_webapp(app: FastAPI, mcp: Any) -> None:
             ]
         }
 
-    @app.post("/api/tools/{name}/call")
+    @app.post("/api/tools/{name}/call", response_model=None)
     async def api_tool_call(name: str, body: dict[str, Any]) -> JSONResponse | dict[str, Any]:
         try:
             result = await mcp.call_tool(name, body.get("arguments", {}))
@@ -101,7 +106,7 @@ def setup_webapp(app: FastAPI, mcp: Any) -> None:
             },
         }
 
-    @app.post("/api/capture/run")
+    @app.post("/api/capture/run", response_model=None)
     async def api_capture_run(body: dict[str, Any]) -> JSONResponse | dict[str, Any]:
         args = {
             "operation": "single",
@@ -118,7 +123,39 @@ def setup_webapp(app: FastAPI, mcp: Any) -> None:
             return {"success": False, "message": "No decode in memory"}
         return {"success": True, "data": result.model_dump(mode="json")}
 
-    @app.post("/api/decode/run")
+    @app.get("/api/llm/providers")
+    async def llm_providers():
+        OLLAMA_BASE = os.environ.get("OLLAMA_BASE_URL", "http://127.0.0.1:11434")
+        try:
+            async with httpx.AsyncClient(timeout=5) as c:
+                r = await c.get(f"{OLLAMA_BASE}/api/tags")
+                r.raise_for_status()
+                data = r.json()
+                models = [m["name"] for m in data.get("models", [])]
+        except Exception:
+            models = []
+        return {"providers": [{"name": "ollama", "models": models}]}
+
+    @app.post("/api/llm/chat")
+    async def llm_chat(body: dict):
+        OLLAMA_BASE = os.environ.get("OLLAMA_BASE_URL", "http://127.0.0.1:11434")
+        prompt = body.get("prompt", "")
+        model = body.get("model", "llama3.2:3b")
+        if not prompt:
+            return {"error": "Missing prompt"}
+        try:
+            async with httpx.AsyncClient(timeout=120) as c:
+                r = await c.post(
+                    f"{OLLAMA_BASE}/api/generate",
+                    json={"model": model, "prompt": prompt, "stream": False},
+                )
+                r.raise_for_status()
+                data = r.json()
+                return {"response": data.get("response", "")}
+        except Exception as e:
+            return {"error": str(e)}
+
+    @app.post("/api/decode/run", response_model=None)
     async def api_decode_run(body: dict[str, Any]) -> JSONResponse | dict[str, Any]:
         protocol = body.get("protocol", "uart")
         operation = body.get("operation", protocol if protocol in ("uart", "i2c", "spi") else "run")
