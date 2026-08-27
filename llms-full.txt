@@ -8,7 +8,7 @@ FastMCP 3.2+ MCP server for USB logic analyzers. Sigrok-first with simulator fal
 - Backends: SimulatorBackend (synthetic UART/I2C/SPI patterns), SigrokBackend (sigrok-cli subprocess)
 - Session: LogicSession in services/session.py; registry holds last capture/decode
 - Transport: stdio (Cursor), http (10985), composite FastAPI server with /mcp mount
-- Webapp: Vite React on 10988 — trace lanes + decode table
+- Webapp: Vite React on 10989 — trace lanes + decode table
 - Native: Tauri 2.0 wrapper (`native/`) — PyInstaller backend embedded, single NSIS installer
 
 ## Default workflow
@@ -47,7 +47,7 @@ LOGIC_ANALYZER_MCP_CAPTURE_DIR=./captures
 LOGIC_ANALYZER_MCP_TRANSPORT=stdio|http|sse
 LOGIC_ANALYZER_MCP_HOST=127.0.0.1
 LOGIC_ANALYZER_MCP_PORT=10985
-LOGIC_ANALYZER_MCP_WEBAPP_PORT=10988
+LOGIC_ANALYZER_MCP_WEBAPP_PORT=10989
 LOGIC_ANALYZER_MCP_PATH=/mcp
 LOGIC_ANALYZER_MCP_LOG_LEVEL=INFO
 LOGIC_ANALYZER_ALLOW_LOGGING=0|1 (opt-in activity log)

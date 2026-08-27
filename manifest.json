@@ -2,7 +2,7 @@
   "manifest_version": "0.2",
   "name": "logic-analyzer-mcp",
   "version": "0.1.0",
-  "description": "FastMCP 3.2+ MCP server for USB logic analyzers via sigrok-cli and simulator. Digital capture, UART/I2C/SPI decode, VCD export. Webapp :10988, HTTP :10985.",
+  "description": "FastMCP 3.2+ MCP server for USB logic analyzers via sigrok-cli and simulator. Digital capture, UART/I2C/SPI decode, VCD export. Webapp :10989, HTTP :10985.",
   "long_description": "Logic Analyzer MCP connects AI agents to USB logic analyzers through sigrok-cli (Hantek 6022BL LA mode, DSLogic, FX2 clones) or a built-in simulator. Six portmanteau tools cover device discovery, channel/trigger setup, capture, protocol decode, and help. Pair with oscilloscope-mcp for mixed-signal electronics bench workflows.",
   "author": {
     "name": "Sandra Schipal",

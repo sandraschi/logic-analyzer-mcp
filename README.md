@@ -38,7 +38,7 @@ The MCP server does not bundle sigrok. Install PulseView or sigrok-cli separatel
 Set-Location D:\Dev\repos\logic-analyzer-mcp
 uv sync --extra dev
 just webapp
-# Open http://127.0.0.1:10988
+# Open http://127.0.0.1:10989
 ```
 
 STDIO-only (Cursor MCP):
@@ -98,7 +98,7 @@ Restart Cursor after editing `mcp.json`.
 | Port | Role |
 |------|------|
 | 10985 | Backend (FastAPI + MCP `/mcp`) |
-| 10988 | Frontend (Vite React — dashboard, device, configure, trigger, trace, decode, logs) |
+| 10989 | Frontend (Vite React — dashboard, device, configure, trigger, trace, decode, logs) |
 
 ```powershell
 just webapp

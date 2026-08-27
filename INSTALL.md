@@ -77,7 +77,7 @@ la_device(operation="connect", device_id="sim-la-001")
 just webapp
 ```
 
-Opens backend on **10985** and Vite on **10988**.
+Opens backend on **10985** and Vite on **10989**.
 
 ## Troubleshooting
 

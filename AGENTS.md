@@ -6,7 +6,7 @@ FastMCP 3.2+ server for USB logic analyzers (sigrok + simulator). Six portmantea
 
 - Install: `uv sync --extra dev`
 - Serve (stdio): `just serve` | HTTP: `just serve-http` (port 10985)
-- Webapp: `just webapp` → http://127.0.0.1:10988
+- Webapp: `just webapp` → http://127.0.0.1:10989
 - Lint/type: `just lint` | Tests: `just test` | MCPB: `just mcpb-pack`
 
 ## Ports
@@ -14,7 +14,7 @@ FastMCP 3.2+ server for USB logic analyzers (sigrok + simulator). Six portmantea
 | Port | Service |
 |------|---------|
 | 10985 | Backend (FastAPI + MCP `/mcp`) |
-| 10988 | Frontend (Vite React) |
+| 10989 | Frontend (Vite React) | [Changed 2026-08-27: was 10988, collided with vienna-life-assistant]
 
 ## Tool patterns
 
