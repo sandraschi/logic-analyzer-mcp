@@ -135,7 +135,7 @@ async def la_help(
                 },
                 {
                     "q": "Pair with oscilloscope-mcp?",
-                    "a": "Yes — scope for analog rails, LA for digital buses during MCU/FPGA bring-up.",
+                    "a": "Yes - scope for analog rails, LA for digital buses during MCU/FPGA bring-up.",
                     "topic": "fleet",
                 },
             ]
